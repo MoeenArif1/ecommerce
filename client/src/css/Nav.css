@@ -1,0 +1,98 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Cabin", sans-serif;
+}
+
+
+
+
+.main-header {
+    width: 100%;
+    padding: 0 40px;
+    z-index: 99;
+    background-color: #212121;
+    color: white;
+    border-bottom: 1px solid;
+    border-color: rgba(0,0,0,.1);
+    position: sticky;
+
+  
+}
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 80px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+.left {
+    display: flex;
+    /* padding: 0 2em; */
+    gap: 25px
+}
+
+.link-deco {
+    text-decoration: none;
+    color: white;
+
+}
+.left .link-deco {
+
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+.left .link-deco:hover {
+    opacity: 0.6;
+    
+}
+.center {
+    font-size: 34px;
+  
+
+}
+.right {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+.right img {
+    font-size: 24px;
+    width: 24px;
+}
+.right img:hover {
+    opacity: 0.6;
+}
+@media only screen and (max-width: 768px){
+    .main-header {
+        padding: 0 20px;
+    }
+    .header-content {
+        height: 50px;
+    }
+    .left {
+    position: absolute;
+    left: 50%; 
+    transform: translateX(-50%);
+        display: none;
+    }
+    .center {
+        
+        font-size: 22px;
+        font-weight: 700;
+        cursor: pointer;
+
+    }
+    .right {
+        gap: 20px;
+    }
+    .right img {
+        font-size: 22px;
+        width: 22px;
+    }
+
+}
