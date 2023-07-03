@@ -1,17 +1,29 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./components/Home"
 import Login from "./components/Login"
 import { Nav } from "./components/Nav";
 import { NotFound } from "./components/NotFound";
 import { About } from "./components/About";
+import axios from 'axios';
 
 function App() {
-  // const {
-  //   token: { colorBgContainer },
-  // } = theme.useToken();
+
+ useEffect(() => {
+  const fetchData = async () => {
+    try {
+      const response = await axios.get('http://127.0.0.1:5000/members');
+      console.log(response.data); // Print the response data to the console
+    } catch (error) {
+      console.error(error); 
+    }
+  };
+
+  fetchData(); 
+}, []);
 
   return (
+  
     <BrowserRouter>
     <Nav/>
     <Routes>
