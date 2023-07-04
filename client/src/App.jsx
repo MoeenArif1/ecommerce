@@ -31,7 +31,7 @@ function App() {
       <Route path="/Login" element={<Login />} />
       <Route path= "/not" element = {<NotFound/>}/>
       <Route path="/About" element = {<About/>}/>
-      <Route path = "/*" element = {()=> <h1>404 Page not Exists</h1>}/>
+      <Route path = "/*" element = {<NotFound/>}/>
     </Routes>
   </BrowserRouter>
 

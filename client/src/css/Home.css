@@ -1,0 +1,146 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    min-width: 500px !important;
+}
+.hero-banner {
+    padding: 40px 0;
+    position: relative;
+    background-image: linear-gradient(to right, #8e2de2, #4a00e0);
+    height: calc(100vh - 80px);
+
+}
+.hero-banner .content {
+    height: 100%;
+    display: flex;
+
+    flex-direction: row;
+    max-width: 1200px;
+
+    justify-content: flex-end;
+    align-items: center;
+
+   
+
+}
+.content .banner-img {
+    position: relative;
+    z-index: 9;
+
+    width: 500px;
+
+    margin-right: 0;
+    margin-top: 50px;
+    margin-bottom: 0;
+
+
+}
+.content .text-content {
+
+    color: white;
+    text-align: center;
+
+    margin-right: 3em;
+
+}
+.text-content h1 {
+    font-size: 180px;
+    font-weight: 700;
+    line-height: 1;
+    color: white;
+    margin-bottom: 20px;
+
+}
+.text-content p {
+    max-width: 500px;
+    font-size: 18px;
+    line-height: 24px;
+    margin-bottom: 40px;
+}
+.text-content .ctas {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+.ctas .banner-cta{
+    text-transform: uppercase;
+    font-size: 13px;
+    font-weight: 500;
+    width: fit-content;
+    border: 2px solid white;
+    padding: 10px 20px;
+    transition: all ease 0.3s;
+    cursor: pointer;
+}
+.ctas .v2 {
+    background-color: white;
+    color: black;
+}
+.hov:hover{
+    opacity: 0.6;
+
+}
+
+@media only screen and (max-width: 768px) {
+    body {
+        min-width: 500px !important;
+    }
+    .hero-banner {
+        height: 80vh;
+        /* min-width: 500px; */
+    }
+    .hero-banner .content {
+        
+        flex-direction: column-reverse;
+        max-width: 100%;
+        margin: 0 auto;
+        position: relative;
+        align-items: center;
+
+        
+   
+    }
+    .content .banner-img {
+        z-index: 1;
+        width: 200px;
+        min-width: 200px;
+        margin-bottom: 20px;
+
+        /* position: fixed;
+        top: 50%;
+        left: 50%;
+         */
+        /* transform: translateY(-50%);
+        transform: translateX(-40%); */
+
+        
+    }
+    .content .text-content {
+        z-index: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        /* transform: translateY(30%);
+        transform: translateX(-10%); */
+
+        text-align: center;
+    
+       
+
+    }
+    .text-content h1 {
+        font-size: 80px;
+    }
+    .text-content p {
+        max-width: 300px;
+        font-size: 14px;
+        line-height: 20px;
+        margin-bottom: 20px;
+    }
+
+    
+}

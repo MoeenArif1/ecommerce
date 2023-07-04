@@ -17,23 +17,6 @@ export function Newsletter(props) {
             <span className="smaller-text">
                 Will be used in accordance with our Privacy Policy
             </span>
-            {
-            /* <span className="social-icons">
-                <div className="icon">
-                    linkedin
-                </div>
-                <div className="icon">
-                    Facebook
-                </div>
-                <div className="icon">
-                    twitter
-                </div>
-                <div className="icon">
-                    instagram
-                </div>
-                
-            </span> */
-            }
         </div>
     </div>
     )
