@@ -1,5 +1,6 @@
 import React from 'react'
 import Product from './Product'
+import "../css/Products.css"
 
 export function Products({headingText}) {
     const innerPage = ''
@@ -10,7 +11,7 @@ export function Products({headingText}) {
             {!innerPage && <div className="sec-heading">{headingText}</div>}
             {/* <div className={`products ${innerPage ? "innerPage" : ""}`}> */}
 
-            <div>
+            <div className='products'>
                 {ids.map((id) => (
                     <Product  id = {id}/>
                 ))}

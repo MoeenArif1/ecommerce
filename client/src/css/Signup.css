@@ -3,19 +3,21 @@
     padding: 0 auto;
     box-sizing: border-box;
 }
-.login-body {
+.signup-body {
     display: flex;
+    /* height: 100vh;
+    margin-top: 50px; */
     height: 88vh;
 }
-
-/* .form-div,
-.empty-div {
+/* 
+.signup-form-div,
+.empty-div{
     flex: 1;
     width: 50%;
     height: 50%;
 } */
 
-.login-forum-div {
+.signup-forum-div {
     flex: 0 0 50%;
     display: flex;
    
@@ -26,7 +28,12 @@
     justify-content: center;
    
 }
-.login-forum-div form {
+.signup-forum-div .form {
+    display: flex;
+    flex-direction: column;
+
+}
+/* .forum-div form {
     width: 504px;
     height: 479px;
     
@@ -36,20 +43,22 @@
     flex-direction: column;
     padding: 20px;
     transition: all 0.3s ease;
-    /* box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3); */
-}
 
-.form-logo {
+}
+*/
+
+.signup-form-logo {
     color: #F47458;
     font-size: 36px;
     font-family: Poppins;
     font-style: normal;
     font-weight: 600;
     line-height: normal;
+    padding-top: 1em;
 
 }
-
-.form-welcome {
+.signup-form-welcome {
+    padding-top: 1em;
     color: rgba(0, 0, 0, 0.50);
     font-size: 16px;
     font-family: Poppins;
@@ -59,17 +68,27 @@
     letter-spacing: 0.48px;
 
 }
-.form-sign {
+.signup-form-sign {
     font-family: Poppins;
     font-style: normal;
     color: #000;
     font-size: 56px;
     font-weight: 600;
     line-height: normal;
+    padding-bottom: 0.3em;
 }
 
+.signup-form-label {
+    display: block !important;
+    color: #000;
+    font-size: 16px;
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
 
-.login-form-form label {
+}
+/* .signup-form-form label {
     display: block;
     color: #000;
     font-size: 16px;
@@ -77,10 +96,10 @@
     font-style: normal;
     font-weight: 300;
     line-height: normal;
-}
+} */
 
 
-.login-form-form input {
+/* .form-form input {
     display: block;
 
     flex-shrink: 0;
@@ -92,22 +111,22 @@
     width: 100%;
     margin: 2% 0;
 
-}
-.login-form-form input:focus {
+} */
+/* .form-form input:focus {
     outline: none;
-}
-.login-form-form input::placeholder {
+} */
+/* .form-form input::placeholder {
     padding: 1em;
 }
-.login-form-form input:focus::placeholder {
+.form-form input:focus::placeholder {
     font-weight:bold;
 }
 .form-butn-container {
     display: flex;
     justify-content: center;
     margin-bottom: 1em;
-}
-.form-butn{
+} */
+/* .form-butn{
     display: block;
     border-radius: 23px;
     background: #F47458;
@@ -118,7 +137,7 @@
 }
 .form-butn:hover {
     opacity: 0.6;
-}
+} */
 
 .form-footer {
     display: flex;
@@ -150,14 +169,22 @@
 
 
 }
+.signup-butn {
+    background-color: #F47458;
 
+    
+}
+.signup-butn:hover {
+    background-color: #F47458 !important;
+    opacity: 0.6;
+}
 @media only screen and (max-width: 1000px) {
-    .login-body {
+    .signup-body {
         display: flex;
         justify-content: center;
 
     }
-    .login-forum-div{
+    .signup-forum-div{
         width: 100%;
     }
     .empty-div{

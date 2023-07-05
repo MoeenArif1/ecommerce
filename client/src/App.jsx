@@ -6,6 +6,7 @@ import { Nav } from "./components/Nav";
 import { NotFound } from "./components/NotFound";
 import { About } from "./components/About";
 import axios from 'axios';
+import Signup from "./components/Signup";
 
 function App() {
 
@@ -27,11 +28,14 @@ function App() {
     <BrowserRouter>
     <Nav/>
     <Routes>
+      <Route path="/" element={<Home />} />
       <Route path="/Home" element={<Home />} />
       <Route path="/Login" element={<Login />} />
       <Route path= "/not" element = {<NotFound/>}/>
       <Route path="/About" element = {<About/>}/>
+      <Route path="/Signup" element = {<Signup/>}/>
       <Route path = "/*" element = {<NotFound/>}/>
+
     </Routes>
   </BrowserRouter>
 

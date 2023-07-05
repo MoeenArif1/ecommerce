@@ -1,9 +1,4 @@
-* {
-    margin:0;
-    padding: 0;
-    box-sizing: border-box;
 
-}
 .newsletter-section {
     width: 100%;
     height: 400px;
@@ -22,22 +17,22 @@
     margin: 0 auto;
     text-align: center;
 }
-.text {
+.news-text {
     margin-bottom: 20px;
     text-transform: uppercase;
     color: rgba(0,0,0,0.5);
 }
-.small-text {
+.news-small-text {
     margin-bottom: 15px;
     text-transform: uppercase;
     color: rgba(0,0,0,0.7);
 }
-.smaller-text {
+.news-smaller-text {
     margin-bottom: 9px;
     color: rgba(0,0,0,0.3);
 
 }
-.big-text {
+.news-big-text {
     margin-bottom: 20px;
     font-size: 28px;
     font-weight: 550;
@@ -45,12 +40,12 @@
     padding: 0 30px;
 }
 
-.form {
+.news-form {
     display: flex;
     gap: 5px;
     margin-bottom: 10px;
 }
-.form input {
+.news-form input {
     width: 300px;
     height: 40px;
     border-radius: 0;
@@ -59,7 +54,7 @@
     font-size: 16px;
     outline: none;
 }
-.form button {
+.news-form button {
     outline: 0;
     border: 0;
     height: 40px;
@@ -75,14 +70,14 @@
 
 }
 @media only screen and (max-width:768px){
-    .big-text{
+    .news-big-text{
         font-size: 22px;
 
     }
-    .form input {
+    .news-form input {
         width: 200px
     }
-    .form button {
+    .news-form button {
         width:100px;
 
     }

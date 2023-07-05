@@ -10,8 +10,8 @@ export function Newsletter(props) {
             <span className="big-text">
                 Sign up for latest updates and offers
             </span>
-            <div className="form">
-                <input type="text" placeholder="Email Address" />
+            <div className="news-form">
+                <input type="news-text" placeholder="Email Address" />
                 <button>Subscribe</button>
             </div>
             <span className="smaller-text">
