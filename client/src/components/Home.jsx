@@ -3,8 +3,11 @@ import { Footer } from './Footer'
 
 import "../css/Home.css"
 import Product from './Product';
+import { Products } from './Products';
+import { useState } from 'react';
 function Home(props) {
     
+  
     // const { products, setProducts, categories, setCategories } =
     // useContext(Context);
     // useEffect(() => {
@@ -22,6 +25,7 @@ function Home(props) {
     //         setCategories(res);
     //     });
     // };
+
 
     return (
         <>
@@ -46,13 +50,13 @@ function Home(props) {
                 </div>
             </div>
             <div className="main-content">
-                <Product/>
                 <div className="layout">
-                    {/* <Category categories={categories} />
+                    {/* <Category categories={categories} />  */}
                     <Products
+   
                         headingText="Popular Products"
-                        products={products}
-                    /> */}
+                        // products={products}
+                    />
                 </div>
             </div>
             <Newsletter/>

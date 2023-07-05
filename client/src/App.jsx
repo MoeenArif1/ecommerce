@@ -9,18 +9,18 @@ import axios from 'axios';
 
 function App() {
 
- useEffect(() => {
-  const fetchData = async () => {
-    try {
-      const response = await axios.get('http://127.0.0.1:5000/members');
-      console.log(response.data); // Print the response data to the console
-    } catch (error) {
-      console.error(error); 
-    }
-  };
+//  useEffect(() => {
+//   const fetchData = async () => {
+//     try {
+//       const response = await axios.get('http://127.0.0.1:5000/members');
+//       console.log(response.data); // Print the response data to the console
+//     } catch (error) {
+//       console.error(error); 
+//     }
+//   };
 
-  fetchData(); 
-}, []);
+//   fetchData(); 
+// }, []);
 
   return (
   

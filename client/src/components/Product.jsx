@@ -1,9 +1,10 @@
 import React from 'react'
 import "../css/Product.css"
 // { data, id }
-const Product = (props) => { 
+const Product = ({id}) => { 
     // const navigate = useNavigate();
     return (
+        
         <div className="product-card">
             {/* // onClick={() => navigate("/product/" + id)}
         > */}
@@ -18,7 +19,7 @@ const Product = (props) => {
             </div>
             <div className="prod-details">
                 <span className="name">
-                    Iphone X
+                    Iphone X  {id}
                     {/* {data.title} */}
                 </span>
                 <span className="price">
