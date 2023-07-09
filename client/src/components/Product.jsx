@@ -1,5 +1,6 @@
 import React from 'react'
 import "../css/Product.css"
+import { Rate } from 'antd';
 // { data, id }
 const Product = ({id}) => { 
     // const navigate = useNavigate();
@@ -18,15 +19,27 @@ const Product = ({id}) => {
                 />
             </div>
             <div className="prod-details">
-                <span className="name">
-                    Iphone X  {id}
-                    {/* {data.title} */}
-                </span>
-                <span className="price">
-                    Rs. 
-                    120,000
-                    {/* {data.price} */}
-                </span>
+                <div className='detail_col'>
+                    <span className="name">
+                        Iphone X  {id}
+                        {/* {data.title} */}
+                    </span>
+                    <span className="price">
+                        Rs. 
+                        120,000
+                        {/* {data.price} */}
+                    </span>
+
+                </div>
+                <div className='detail_col detail-col-less'>
+                    <div className='product-rating'>
+                        <Rate/>
+                    </div>
+                    <div className='product-star'>
+                        stars
+                    </div>
+                </div>
+                                 
             </div>
         </div>
     );

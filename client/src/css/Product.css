@@ -42,6 +42,16 @@
 .prod-details {
     font-family: 'Roboto','Helvetica Neue',Helvetica,Tahoma,Arial,Sans-serif;
     padding:  0 2em;
+    display: flex;
+    flex-direction: row;
+
+}
+.prod-details .detail_col {
+    width: 60% ;
+
+}
+.detail-col-less {
+    width: 40%;
 }
 .prod-details .name {
     font-size: 26px;
@@ -55,6 +65,16 @@
 .prod-details .price {  
     font-size: 24px;
     color: #f85606;
+}
+.product-rating, .product-star {
+    text-align: center;
+}
+.itemCardImage{
+    height: 20vh !important;
+    object-fit:contain;
+}
+.itemCard, .itemCardBadge{
+    margin: 8px;
 }
 @media only screen and (max-width: 768px) {
     .product-card {
@@ -75,3 +95,4 @@
     }
     
 }
+/* https://github.com/aamirjaved844/Simple-e-Commerce-Website-using-React-and-Ant-Design/blob/main/src/Components/Products/index.js#L142 */

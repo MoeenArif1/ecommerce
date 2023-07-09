@@ -33,8 +33,10 @@
     
 
 }
-
-
+.custom-list {
+    display: grid;
+    grid-gap: 16px; /* Adjust the desired gap size */
+  }
 @media only screen and (max-width:768px) {
     .products-container {
         margin: 50px 0;
@@ -48,7 +50,5 @@
     }
     .products {
         gap: 10px;
-    }
-    
-    
+    } 
 }
