@@ -99,8 +99,8 @@ function Signup(props) {
                                 </Button>
                             </Form.Item>
                         </Form>
-                        <div className="form-footer">
-                            I already have an account? <Link className='form-link' to = '/Login'>Sign in</Link>
+                        <div className="signup-form-footer">
+                            <span>I already have an account? </span> <span className="last"><Link className='form-link' to = '/Login'>Sign in</Link> </span>
                         </div> 
                        
                     </div>

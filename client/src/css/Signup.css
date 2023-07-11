@@ -139,7 +139,7 @@
     opacity: 0.6;
 } */
 
-.form-footer {
+.signup-form-footer {
     display: flex;
     justify-content: center;
     color: rgba(0, 0, 0, 0.35);
@@ -189,5 +189,14 @@
     }
     .empty-div{
         display: none;
+    }
+    .signup-form-footer {
+        display: flex;
+        flex-direction: column;
+        gap:0.2em;
+        
+    }
+    .signup-form-footer .last {
+        margin-bottom: 1em;
     }
 }
