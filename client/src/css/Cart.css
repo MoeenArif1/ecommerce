@@ -1,0 +1,18 @@
+
+
+@media only screen and (max-width:1000px) {
+    .ant-drawer-content-wrapper {
+        width: 100% !important;
+    }
+    .cart-table{
+        font-size: 1.5em !important;
+    }
+    .cart-table-row{
+        font-size: 1.5em;
+    }
+    .cart-big-font {
+        font-size: 1.5em;
+
+    }
+    
+}
