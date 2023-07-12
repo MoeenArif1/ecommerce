@@ -14,7 +14,7 @@ import { Badge,
 
 export function Products({headingText}) {
     const innerPage = ''
-    // const ids = [1,2,3,4,5,6,7,8,9]
+
     const [loading, setLoading] = useState(false);
     // const param = useParams();
     const [items, setItems] = useState([]);
@@ -74,7 +74,7 @@ export function Products({headingText}) {
             <Badge.Ribbon
               className="itemCardBadge"
               text={`${product.discountPercentage}% Off`}
-              color="pink"
+              color="purple"
             >
               <Card
                 className="itemCard"
@@ -91,9 +91,9 @@ export function Products({headingText}) {
                 <Card.Meta
                   title={
                     <Typography.Paragraph>
-                      Price: ${product.price}{" "}
+                      Price: Rs {product.price}{" "}
                       <Typography.Text delete type="danger">
-                        $
+                        Rs 
                         {parseFloat(
                           product.price +
                             (product.price * product.discountPercentage) / 100
@@ -103,7 +103,7 @@ export function Products({headingText}) {
                   }
                   description={
                     <Typography.Paragraph
-                      ellipsis={{ rows: 2, expandable: true, symbol: "more" }}
+                      ellipsis={{ rows: 1, expandable: true, symbol: "more" }}
                     >
                       {product.description}
                     </Typography.Paragraph>

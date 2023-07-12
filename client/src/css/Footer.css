@@ -113,5 +113,11 @@
     }
     .footer-col {
         width:100%;
+
+    }
+    
+    
+    .bottom-bar-content{
+        margin-bottom: 40px;
     }
 }

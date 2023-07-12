@@ -57,7 +57,7 @@ export function Footer(props) {
                 <span className='footer-text'>
                     XYZSTORE 2023 CREATED BY PUCIT SOLUTIONS.
                 </span>
-                <img src='/payments.png' />
+                <img src='/payments.png' className='footer-pay-img' />
             </div> 
         </div>
           

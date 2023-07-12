@@ -43,7 +43,7 @@ function Home(props) {
                             <div className="banner-cta v2 hov">Shop Now</div>
                         </div>
                     </div>
-                    <div>
+                    <div className='hero-img'> 
                         <img className="banner-img" src= "./banner-img.png" />
                     </div>
                     

@@ -20,9 +20,9 @@ body {
     display: flex;
 
     flex-direction: row;
-    max-width: 1200px;
+    /* max-width: 1200px; */
 
-    justify-content: flex-end;
+    justify-content: space-evenly;
     align-items: center;
 
    
@@ -86,7 +86,7 @@ body {
 
 }
 
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 1000px) {
     body {
         min-width: 500px !important;
     }
