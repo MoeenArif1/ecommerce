@@ -1,37 +1,72 @@
 import  { useEffect, useState } from 'react'
-import { Badge, Button, Drawer, InputNumber, Table } from 'antd'
+import { Badge, Button, Drawer, InputNumber, Table, message } from 'antd'
 import { ShoppingCartOutlined } from '@ant-design/icons';
 import '../css/Cart.css'
+import { useLoginContext } from './LoginContext';
+import { useAppContext } from './appContext';
+
 function Cart() {
-    // cart component gets id 
-    const id = 1
+  
+   
+    const [id, setId] = useState(null)
+    const [cartItems, setCartItems] = useState([]);
     const [visible, setVisible] = useState(false);
     const [cartCount, setcartCount] = useState(0);
-    const [cartItems, setCartItems] = useState([]);
     
+    const {loginContext} = useLoginContext();
+    const {appContext, setAppContext} = useAppContext();
+
+
+    useEffect(()=> {
+        if (loginContext!= null)
+            setId(loginContext.id)
+    }, [loginContext]);
+
+    useEffect(()=> {
+        setcartCount(appContext.cartCount)
+    }, [appContext.cartCount])
+
     useEffect(() => {
-        fetch(`https://dummyjson.com/carts/${id}`)
-        .then(res => res.json())
-        .then((data)=> {
-            return setCartItems(data.products)
-        });
-    }, [visible])
+        if (id != null ) {
+            fetch(`https://dummyjson.com/carts/${id}`)
+            .then(res => res.json())
+            .then((data)=> {
+                console.log(data)
+                setCartItems(data.products)
+                //////////////////////////
+                // remove this if when your own api
+                if (appContext.cartCount == 0)
+                { 
+                    const updatedAppContext = {...appContext, cartCount: data.totalProducts}
+                    setAppContext(updatedAppContext)
+ 
+                }
+                  
+            });
+
+        }
+    
+    }, [visible, id])
    
 
     const handleClick = () => {
-        setVisible(true);   
+        if (id)
+            setVisible(true); 
+        else {
+            message.error("Please Login First")
+        }  
     
     }
 
     const onClose = () => {
         setVisible(false);
     };
-
+    
 
   return (
-    <>
-        <Badge count={cartCount} size='small'> 
-            <Button type="default" ghost style={{border: 'none'}} size='large' icon={<ShoppingCartOutlined />} onClick={handleClick}></Button>
+    <>  
+        <Badge count={cartCount} size='small' showZero={true} offset={[0, 10]}> 
+            <Button  type="default" ghost style={{border: 'none'}} size='large' icon={<ShoppingCartOutlined />} onClick={handleClick}></Button>
         </Badge>
                   
         <Drawer 

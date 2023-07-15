@@ -1,9 +1,68 @@
+//add user cart and other with sign up
 import { Link } from "react-router-dom";
 import "../css/Signup.css"
-import { Form, Input, Button, Checkbox, Radio } from 'antd';
+import { Form, Input, Button, Checkbox, Radio, InputNumber, message } from 'antd';
+
 function Signup(props) {
-    const onFinish = (values) => {
-        console.log('Received values:', values);
+
+    const createCart = (id) => {
+
+
+        fetch('https://dummyjson.com/carts/add', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                userId: id,
+                products: [{
+                    // remove after
+                    id:123,
+                    quantity: 0,
+                }]
+                
+            })
+            })
+            .then(res => res.json())
+            .then((data) => {
+            
+                if (data  && data.message) {
+                    message.error(data.message)
+                    
+                    
+                }
+                else{
+                    message.success("Cart created")
+                }
+               
+            });
+            
+    }
+   
+    const onFinish =  (values) => {
+        fetch('https://dummyjson.com/users/add', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                username: values.username,
+                password: values.password,
+                gender: values.gender,
+                phone: values.phoneNumber,
+                address: values.address
+        
+            })
+            })
+            .then(res => res.json())
+            .then((data) => {
+                if (data && data.id){
+                    message.success("User Successfully Created")
+                    createCart(data.id)
+        
+                }
+                else if (data && data.message) {
+                    message.error(data.message)
+                    
+                }
+ 
+            });
       };
 
 
@@ -29,11 +88,11 @@ function Signup(props) {
                             </Form.Item>
 
                             <Form.Item
-                                label="Email"
-                                name="email"
+                                label="User Name"
+                                name="username"
                                 rules={[
-                                { required: true, message: 'Please enter your email' },
-                                { type: 'email', message: 'Please enter a valid email' },
+                                { required: true, message: 'Please enter your username' },
+                                { type: 'username', message: 'Please enter a valid username' },
                                 ]}
                             >
                                 <Input />
@@ -65,6 +124,27 @@ function Signup(props) {
                                 ]}
                             >
                                 <Input.Password />
+                            </Form.Item>
+                            <Form.Item
+                                label="Address"
+                                name="address"
+                                rules={[
+                                { required: true, message: 'Please enter your address' },
+                                // Add additional validation rules as needed
+                                ]}
+                            > 
+                                <Input/>
+                                
+                            </Form.Item>
+                            <Form.Item
+                                label="Phone Number"
+                                name="phoneNumber"
+                                rules={[
+                                { required: true, message: 'Please enter your phone number' },
+                                // Add additional validation rules as needed
+                                ]}
+                            >
+                                <InputNumber style={{ width: '100%' }} />
                             </Form.Item>
 
                             <Form.Item

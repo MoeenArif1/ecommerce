@@ -199,4 +199,9 @@
     .signup-form-footer .last {
         margin-bottom: 1em;
     }
+    .signup-forum-div .form {
+        height: 80vh !important;
+        margin-top: 0;
+        padding-top: 0 !important;
+    }
 }

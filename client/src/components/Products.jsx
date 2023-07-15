@@ -12,8 +12,22 @@ import { Badge,
   Typography,
   Select, } from 'antd'
 
+import { useLoginContext } from './LoginContext'
+import { useAppContext } from './appContext'
+
 export function Products({headingText}) {
+
     const innerPage = ''
+    
+    const [id, setId] = useState(null);
+    const {loginContext} = useLoginContext();
+
+    useEffect(()=> {
+      if (loginContext!= null)
+          setId(loginContext.id)
+  }, [loginContext]);
+
+  const {appContext, setAppContext} = useAppContext();
 
     const [loading, setLoading] = useState(false);
     // const param = useParams();
@@ -36,7 +50,7 @@ export function Products({headingText}) {
       .then(res => res.json())
       .then((data)=> {
         setItems(data.products)
-        console.log(data.products)
+   
         
       });
       setLoading(false)
@@ -118,21 +132,56 @@ export function Products({headingText}) {
         
         </div>
     )
+
     function AddToCartButton({ item }) {
       const [loading, setLoading] = useState(false);
-      // const addProductToCart = () => {
-      //   setLoading(true);
-      //   addToCart(item.id).then((res) => {
-      //     message.success(`${item.title} has been added to cart!`);
-      //     setLoading(false);
-      //   });
-      // };
+      
+     
+      
+      const addProductToCart = () => {
+        setLoading(true)
+
+
+        if (id) {
+          fetch(`https://dummyjson.com/carts/${id}`, {
+          method: 'PUT', /* or PATCH */
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            merge: true, // this will include existing products in the cart
+            products: [
+              item,
+            ],
+            
+            
+
+          })
+        })
+        .then(res => res.json())
+        .then( (data) => {
+          message.success(`${item.title} has been added to cart!`);
+
+          const updatedAppContext = {...appContext, cartCount: appContext.cartCount + 1}
+          setAppContext(updatedAppContext)
+      
+   
+    
+          setLoading(false)
+
+        })
+
+        } else {
+          message.error("LOGIN FIRST")
+        }
+        
+     
+      }
+
       return (
         <Button
           type="link"
-          // onClick={() => {
-          //   addProductToCart();
-          // }}
+          onClick={() => {
+            addProductToCart();
+          }}
           loading={loading}
         >
           Add to Cart
