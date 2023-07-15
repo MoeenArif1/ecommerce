@@ -4,6 +4,9 @@
     .ant-drawer-content-wrapper {
         width: 100% !important;
     }
+    .cart-drawer {
+        width: 100% !important;
+    }
     .cart-table{
         font-size: 1.5em !important;
     }

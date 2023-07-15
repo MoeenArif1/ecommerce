@@ -10,6 +10,7 @@ export function AppContextProvider ({children}) {
     cartCount: 0,
     newsletter: false,
     newsletterEmail: null,
+    searchValue: ""
   });
 
 

@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useParams } from 'react'
+import React, { useEffect, useState, useParams, useMemo } from 'react'
 import Product from './Product'
 import "../css/Products.css"
 import { Badge,
@@ -8,9 +8,10 @@ import { Badge,
   List,
   message,
   Rate,
-  Spin,
+  Space,
   Typography,
-  Select, } from 'antd'
+  Input,
+  Divider } from 'antd'
 
 import { useLoginContext } from './LoginContext'
 import { useAppContext } from './appContext'
@@ -20,29 +21,18 @@ export function Products({headingText}) {
     const innerPage = ''
     
     const [id, setId] = useState(null);
+    const [searchValue, setSearchValue] = useState("");
     const {loginContext} = useLoginContext();
 
     useEffect(()=> {
-      if (loginContext!= null)
-          setId(loginContext.id)
+      if (loginContext != null)
+        setId(loginContext.id)
   }, [loginContext]);
 
   const {appContext, setAppContext} = useAppContext();
 
     const [loading, setLoading] = useState(false);
-    // const param = useParams();
     const [items, setItems] = useState([]);
-
-    // useEffect(() => {
-    //   setLoading(true);
-    //   (param?.categoryId
-    //     ? getProductsByCategory(param.categoryId)
-    //     : getAllProducts()
-    //   ).then((res) => {
-    //     setItems(res.products);
-    //     setLoading(false); 
-    //   });
-    // }, [param]);
     
     useEffect(()=> {
       setLoading(true)
@@ -66,18 +56,27 @@ export function Products({headingText}) {
       xxl: 3,
     };
 
+    const onSearch = (value) => {
+      setSearchValue(value)
+    }
+
+    const products = useMemo(() => {
+      if(searchValue === "") return items;
+      return items.filter(item => item.title.toLowerCase().includes(searchValue.toLowerCase()));
+    }, [items, searchValue])
   
     return (
         <div>
-            {!innerPage && <div className="sec-heading">{headingText}</div>}
-            {/* <div className={`products ${innerPage ? "innerPage" : ""}`}> */}
-
-            {/* <div className='products'>
-                {ids.map((_id) => (
-                    <Product  id = {_id}/>
-                ))}
-            </div>
-             */}
+          <div className="sec-heading">
+            <Space className='header-div'>
+              {!innerPage && <div className='header-div-col'>{headingText}</div>}
+              <Divider type="vertical" style={{color: 'grey'}}/>
+              
+              <Input.Search className="search-bar header-div-col" size='large' allowClear onSearch={onSearch} placeholder='Search Product' />
+            </Space>
+          </div>
+         
+  
           <List
             loading={loading}
             grid={gridConfig}
@@ -127,7 +126,7 @@ export function Products({headingText}) {
             </Badge.Ribbon>
           );
         }}
-        dataSource={items}
+        dataSource={products}
       ></List>
         
         </div>

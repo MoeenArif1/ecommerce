@@ -9,23 +9,6 @@ import { useNavigate } from 'react-router-dom';
 function Home(props) {
     
   
-    // const { products, setProducts, categories, setCategories } =
-    // useContext(Context);
-    // useEffect(() => {
-    //     getProducts();
-    //     getCategories();
-    // }, []);
-
-    // const getProducts = () => {
-    //     fetchDataFromApi("/api/products?populate=*").then((res) => {
-    //         setProducts(res);
-    //     });
-    // };
-    // const getCategories = () => {
-    //     fetchDataFromApi("/api/categories?populate=*").then((res) => {
-    //         setCategories(res);
-    //     });
-    // };
     const mainContentDivRef = useRef(null);
     const navigate = useNavigate();
     const [isDisable, setIsDisabled] = useState(null);
@@ -83,12 +66,12 @@ function Home(props) {
             </div>
             <div className="main-content" ref={mainContentDivRef} >
                 <div className="layout">
-                    {/* <Category categories={categories} />  */}
+                
                     <Products
    
-                        headingText="Popular Products"
+                        headingText="Our Products"
                         className= "products"
-                        // products={products}
+                 
                     />
                 </div>
             </div>

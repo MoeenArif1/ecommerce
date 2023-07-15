@@ -4,8 +4,10 @@ import Cart from './Cart'
 
 import "../css/Nav.css"
 import { useLoginContext } from './LoginContext'
+import { Input } from 'antd'
+import { useAppContext } from './appContext'
 
-export function Nav(props) {
+export function Nav() {
     const navigate = useNavigate()
     const {loginContext} = useLoginContext()
     const [id, setId] = useState()
@@ -34,7 +36,6 @@ export function Nav(props) {
                 <div className='center'> <Link className='link-deco' to="/Home">XYZ-Store.</Link></div>
                 
                 <div className='right'>
-                <div className='nav-item'> <Link className='link-deco' to="/not">{/* size 50 50  */}<img src='./icons8-search-50.png' alt='Search'/></Link></div>
                 <div className='nav-item'>
                     <Cart/>
                 </div>

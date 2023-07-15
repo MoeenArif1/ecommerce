@@ -12,7 +12,9 @@ export function LoginContextProvider ({children}) {
   console.log(loginContext)
   return (
     <LoginContext.Provider value={{loginContext, setLoginContext}}>
-      {children}
+      <React.Fragment key={LoginContext?.id}>
+        {children}
+      </React.Fragment>
     </LoginContext.Provider>
   )
 }

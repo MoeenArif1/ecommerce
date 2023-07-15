@@ -50,5 +50,24 @@
     }
     .products {
         gap: 10px;
-    } 
+    }
+    .header-div {
+        display: flex;
+        flex-direction: column;
+
+    }
+    .sec-heading:after {
+        content: "";
+        display: block;
+    
+        width: 100%;
+        height: 3px;
+        background-color: #ffffff;
+        margin-top: 10px;
+     
+    }
+}
+
+.search-bar {
+    width: 20rem;
 }

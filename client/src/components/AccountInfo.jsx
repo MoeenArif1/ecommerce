@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from 'react'
-import { Divider, Row, Col } from 'antd';
+import { Divider, Row, Col, Button, message } from 'antd';
 import { useLoginContext } from './LoginContext';
 import { useAppContext } from './appContext';
+import { useNavigate } from 'react-router-dom';
 
 function AccountInfo() {
-    const {loginContext}  = useLoginContext()
-    const {appContext} = useAppContext()
+    const {loginContext, setLoginContext}  = useLoginContext()
+    const {appContext, setAppContext} = useAppContext()
+    const [loading, setLoading] = useState(false)
 
     const [id, setId] = useState()
     const [userInfo, setUserInfo] = useState()
+    const navigate = useNavigate()
    
     useEffect(()=> {
         if (loginContext!= null) 
@@ -27,6 +30,18 @@ function AccountInfo() {
        
             
     }, [id])
+
+    const processLogout = () => {
+        setLoading(true)
+        setLoginContext(null)
+        setAppContext({cartCount: 0})
+        setId(null)
+        navigate('/Home')
+        message.success("Logged out Successfully")
+
+        setLoading(false)
+
+    }
     return (
         
         <>
@@ -76,6 +91,18 @@ function AccountInfo() {
                 </Col>
       
             </Row>
+            <Divider style={styles.divider}>Log Out</Divider>
+            <Row style={styles.row}>
+                <Col span={24} md={12}>
+                    <div style={styles.logout}>
+                        <Button type="primary" danger onClick={processLogout} loading= {loading}>
+                        Log out
+                        </Button>
+                    </div>
+                
+
+                </Col>
+            </Row>
 
      
         </div>
@@ -110,6 +137,10 @@ function AccountInfo() {
         text: {
           margin: 0,
         },
+        logout: {
+            display: 'flex',
+            justifyContent: 'center'
+        }
       };
       
 export default AccountInfo

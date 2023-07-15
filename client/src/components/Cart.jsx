@@ -12,6 +12,7 @@ function Cart() {
     const [cartItems, setCartItems] = useState([]);
     const [visible, setVisible] = useState(false);
     const [cartCount, setcartCount] = useState(0);
+    const [total, setTotal] = useState(0);
     
     const {loginContext} = useLoginContext();
     const {appContext, setAppContext} = useAppContext();
@@ -50,8 +51,11 @@ function Cart() {
    
 
     const handleClick = () => {
-        if (id)
+        if (id){
             setVisible(true); 
+            updateTotal()
+        }
+            
         else {
             message.error("Please Login First")
         }  
@@ -61,6 +65,17 @@ function Cart() {
     const onClose = () => {
         setVisible(false);
     };
+    const updateTotal = () => {
+        const updatedTotal = cartItems.reduce((prev, current) => prev + current.total, 0);
+        setTotal(updatedTotal);
+      };
+    const orderProcess = () => {
+       console.log(cartItems)
+       const filteredCartItems = cartItems.filter((cartItem) => cartItem.quantity > 0);
+       console.log(filteredCartItems)
+
+
+    }
     
 
   return (
@@ -77,6 +92,7 @@ function Cart() {
         title="Your Cart"
         contentWrapperStyle={{ width: 600 }}
         className='cart-drawer'
+        
 
 
         > 
@@ -103,20 +119,38 @@ function Cart() {
                 dataIndex: "quantity",
                 render: (value, record) => {
                     return (
-                    <InputNumber
-                        min={0}
-                        defaultValue={value}
-                        onChange={(value) => {
-                        setCartItems((pre) =>
-                            pre.map((cart) => {
-                            if (record.id === cart.id) {
-                                cart.total = cart.price * value;
-                            }
-                            return cart;
-                            })
-                        );
-                        }}
-                    ></InputNumber>
+                        <InputNumber
+                            min={0}
+                            defaultValue={value}
+                            onChange={(newValue) => {
+                                setCartItems((prevCartItems) =>
+                                prevCartItems.map((cartItem) => {
+                                    if (record.id === cartItem.id) {
+                                        //return { ...cartItem, quantity: newValue, total: cartItem.price * newValue };
+                                        cartItem.quantity = newValue;
+                                        cartItem.total = cartItem.price * newValue
+                                    
+                                    }
+                                    return cartItem;
+                                })
+                                );
+                            }}
+                        />
+
+                    // <InputNumber
+                    //     min={0}
+                    //     defaultValue={value}
+                    //     onChange={(value) => {
+                    //     setCartItems((pre) =>
+                    //         pre.map((cart) => {
+                    //         if (record.id === cart.id) {
+                    //             cart.total = cart.price * value;
+                    //         }
+                    //         return cart;
+                    //         })
+                    //     );
+                    //     }}
+                    // ></InputNumber>
                     );
                 },
                 },
@@ -127,16 +161,26 @@ function Cart() {
                     return <span>Rs {value}</span>;
                 },
                 },
+                
             ]}
             dataSource={cartItems}
-            summary={(data) => {
-                const total = data.reduce((pre, current) => {
-                return pre + current.total;
-                }, 0);
-                return <p className="cart-big-font">Total: &nbsp; &nbsp;Rs {total}</p>;
-            }}
+            // summary={(data) => {
+            //     const total = data.reduce((pre, current) => {
+            //     return pre + current.total;
+            //     }, 0);
+            //     return   <p className="cart-big-font">Total: &nbsp; &nbsp;Rs {total}</p>;
+            summary={() => (
+                <p className="cart-big-font">Total: &nbsp; &nbsp;Rs {total}</p>
+              )}
+                
+            
             />
+            <div style={{display: 'flex', flexDirection: 'row-reverse'}}>
+                <Button type="primary" onClick={orderProcess}>Confirm Order</Button>
+            </div>
+            
         </Drawer>
+        
     </>
   )
 }
