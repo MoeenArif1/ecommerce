@@ -30,7 +30,14 @@ function Cart() {
 
     useEffect(() => {
         if (true) {
-            fetch(`https://dummyjson.com/carts/${id}`)
+
+        fetch('http://127.0.0.1:5000/cart/cart', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                userId: id,
+            })
+            })
             .then(res => res.json())
             .then((data)=> {
                 console.log(data)
@@ -75,6 +82,26 @@ function Cart() {
     const onClose = () => {
         setVisible(false);
         updateCart()
+        fetch(`http://127.0.0.1:5000/cart/cart`, {
+            method: 'PUT', /* or PATCH */
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+
+              userId: id,
+              products: appContext.cart,
+              total: appContext.cartTotal,
+              totalProducts: appContext.cartCount
+
+              
+  
+            })
+          })
+          .then(res => res.json())
+          .then( (data) => {
+            message.success(`cart has been updated!`);
+            console.log(data)
+          })
+
         updateTotal()
 
         /// set update cart call to api
@@ -96,7 +123,28 @@ function Cart() {
     }
     const orderProcess = () => {
         onClose()
-       
+        
+        
+        fetch(`http://127.0.0.1:5000/cart/cart`, {
+            method: 'PUT', /* or PATCH */
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+
+              userId: id,
+              products: appContext.cart,
+              total: appContext.cartTotal,
+              totalProducts: appContext.cartCount
+
+              
+  
+            })
+          })
+          .then(res => res.json())
+          .then( (data) => {
+            message.success(`cart has been updated!`);
+            console.log(data)
+          })
+
         navigate("/Order")
         
       
@@ -172,7 +220,7 @@ function Cart() {
                             onChange={(newValue) => {
                                 setCartItems((prevCartItems) =>
                                     prevCartItems.map((cartItem) => {
-                                        if (record.id === cartItem.id) {
+                                        if (record.p_id === cartItem.p_id) {
                                             //return { ...cartItem, quantity: newValue, total: cartItem.price * newValue };
                                             cartItem.quantity = newValue;
                                             cartItem.total = cartItem.price * newValue

@@ -9,33 +9,32 @@ function AccountInfo() {
     const {appContext, setAppContext} = useAppContext()
     const [loading, setLoading] = useState(false)
 
-    const [id, setId] = useState()
-    const [userInfo, setUserInfo] = useState()
+    // const [id, setId] = useState()
+    // const [userInfo, setUserInfo] = useState()
     const navigate = useNavigate()
    
-    useEffect(()=> {
-        if (loginContext!= null) 
-            setId(loginContext.id)
-    }, [loginContext])
+    // useEffect(()=> {
+    //     if (loginContext!= null) 
+    //         setId(loginContext.id)
+    // }, [loginContext])
 
-    useEffect(()=> {
-        if (id){
-            fetch(`https://dummyjson.com/users/${id}`)
-            .then(res => res.json())
-            .then((data) => {
-                console.log(data)
-                setUserInfo(data)
-            });
-        }
+    // useEffect(()=> {
+    //     if (id){
+    //         fetch(`https://dummyjson.com/users/${id}`)
+    //         .then(res => res.json())
+    //         .then((data) => {
+    //             console.log(data)
+    //             setUserInfo(data)
+    //         });
+    //     }
        
             
-    }, [id])
+    // }, [id])
 
     const processLogout = () => {
         setLoading(true)
         setLoginContext(null)
         setAppContext({cartCount: 0})
-        setId(null)
         navigate('/Home')
         message.success("Logged out Successfully")
 
@@ -46,16 +45,16 @@ function AccountInfo() {
         
         <>
             {
-                userInfo? (
+                loginContext? (
                     <div style={styles.container}>
             <Divider style={styles.divider}>Account Info</Divider>
             <Row style={styles.row}>
                 <Col span={24} md={12}>
-                    <p style={styles.text}>Name: {userInfo.firstName + ' '+ userInfo.lastName } </p>
+                    <p style={styles.text}>Name: {loginContext.firstName + ' '+ loginContext.lastName } </p>
                 </Col>
      
                 <Col span={24} md={12}>
-                    <p style={styles.text}>Phone Number: {userInfo.phone}</p>
+                    <p style={styles.text}>Phone Number: {loginContext.phone}</p>
                 </Col>
                 <Col span={24} md={12}>
                     <p style={styles.text}>Gender: {loginContext.gender}</p>
@@ -84,10 +83,7 @@ function AccountInfo() {
             <Divider style={styles.divider}>Address Info</Divider>
             <Row style={styles.row}>
                 <Col span={24} md={12}>
-                    <p style={styles.text}>Adress: {userInfo.address.address}</p>
-                </Col>
-                <Col span={24} md={12}>
-                <p style={styles.text}>City: {userInfo.address.city}</p>
+                    <p style={styles.text}>Adress: {loginContext.address}</p>
                 </Col>
       
             </Row>

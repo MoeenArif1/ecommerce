@@ -4,20 +4,17 @@ import "../css/Signup.css"
 import { Form, Input, Button, Checkbox, Radio, InputNumber, message } from 'antd';
 
 function Signup(props) {
-
+    let id = 11
     const createCart = (id) => {
 
 
-        fetch('https://dummyjson.com/carts/add', {
+        fetch('http://127.0.0.1:5000/cart/add', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 userId: id,
-                products: [{
-                    // remove after
-                    id:123,
-                    quantity: 0,
-                }]
+                products: [],
+                c_id : id
                 
             })
             })
@@ -38,7 +35,7 @@ function Signup(props) {
     }
    
     const onFinish =  (values) => {
-        fetch('https://dummyjson.com/users/add', {
+        fetch('http://127.0.0.1:5000/users', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
@@ -46,14 +43,20 @@ function Signup(props) {
                 password: values.password,
                 gender: values.gender,
                 phone: values.phoneNumber,
-                address: values.address
+                address: values.address,
+                firstName: values.firstName,
+                lastName: values.lastName,
+                email: values.email,
+                u_id: id
         
             })
             })
             .then(res => res.json())
             .then((data) => {
+                console.log(data)
                 if (data && data.id){
                     message.success("User Successfully Created")
+                    id += 1
                     createCart(data.id)
         
                 }
@@ -79,9 +82,25 @@ function Signup(props) {
                     <div className="signup-form-form">
                         <Form name="signupForm" onFinish={onFinish} labelCol={{span:10}} wrapperCol={{span:14}}>
                             <Form.Item
-                                label="Name"
-                                name="name"
-                                rules={[{ required: true, message: 'Please enter your name' }]}
+                                label="First Name"
+                                name="firstName"
+                                rules={[{ required: true, message: 'Please enter your first name' }]}
+            
+                            >
+                                <Input />
+                            </Form.Item>
+                            <Form.Item
+                                label="Last Name"
+                                name="lastName"
+                                rules={[{ required: true, message: 'Please enter your last name' }]}
+            
+                            >
+                                <Input />
+                            </Form.Item>
+                            <Form.Item
+                                label="Email"
+                                name="email"
+                                rules={[{ required: true, message: 'Please enter your email' }]}
             
                             >
                                 <Input />

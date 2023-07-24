@@ -150,7 +150,7 @@ export function Products({headingText}) {
         if (id ) {
           console.log("item ", item)
     
-          const index = appContext.cart.findIndex(obj => obj.id === item.id);
+          const index = appContext.cart.findIndex(obj => obj.p_id === item.p_id);
           if (index !== -1) {
             appContext.cart[index] = {...appContext.cart[index], quantity: appContext.cart[index].quantity + 1, total: appContext.cart[index].total +  appContext.cart[index].price}
             appContext.cartTotal = appContext.cartTotal + item.price
@@ -163,7 +163,7 @@ export function Products({headingText}) {
 
       
             const new_item = {
-              id: item.id,
+              p_id: item.p_id,
               discountPercentage: item.discountPercentage,
               discountedPrice: item.price -  discount_price ,
               price: item.price,
@@ -179,28 +179,31 @@ export function Products({headingText}) {
             
             const updateContext = {...appContext}
             setAppContext(updateContext)
-            message.success(`${new_item.title} has been added to cart!`)
+           
             
             
           }
       
        
-        //    // add item to cart here and update total and cartCount correctly
-        //   fetch(`https://dummyjson.com/carts/${id}`, {
-        //   method: 'PUT', /* or PATCH */
-        //   headers: { 'Content-Type': 'application/json' },
-        //   body: JSON.stringify({
-        //     merge: true, // this will include existing products in the cart
-        //     products: [
-        //       item,
-        //     ]
+           // add item to cart here and update total and cartCount correctly
+          fetch(`http://127.0.0.1:5000/cart/cart`, {
+          method: 'PUT', /* or PATCH */
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            merge: true, // this will include existing products in the cart
+            userId: id,
+            products: [
+              item,
+            ]
 
-        //   })
-        // })
-        // .then(res => res.json())
-        // .then( (data) => {
-        //   message.success(`${item.title} has been added to cart!`);
-        //   let updatedAppContext = null
+          })
+        })
+        .then(res => res.json())
+        .then( (data) => {
+          message.success(`${item.title} has been added to cart!`);
+          console.log(data)
+        })
+          //let updatedAppContext = null
           
         //   if (appContext.cartCount == 0) {
         //     updatedAppContext = {...appContext, cartCount: 1}

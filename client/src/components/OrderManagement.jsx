@@ -2,12 +2,14 @@ import React, { useState } from 'react';
 import { Form, Input, Button, Table, message } from 'antd';
 import axios from 'axios';
 import { useAppContext } from './appContext';
+import { useLoginContext } from './LoginContext';
 
 const OrderManagement = () => {
   const [form] = Form.useForm();
   const [loading, setLoading] = useState(false);
 
   const {appContext, setAppContext} = useAppContext();
+  const {loginContext} = useLoginContext()
 
   const onFinish = async (values) => {
     setLoading(true);
@@ -18,25 +20,37 @@ const OrderManagement = () => {
       //   cartItems,
       // });
       // make api call here
-      const response = {
-        data: {
-          success: true
-        }
+      
+      let order = {
+        userId : loginContext.id,
+        username: loginContext.username,
+        phone: loginContext.phone,
+        email: loginContext.email,
+        shippingAddress: values.shippingAddress,
+        cart : appContext.cart,
+        total : appContext.cartTotal,
+        totalProducts : appContext.cartCount
+  
       }
-
-      // Assuming the API returns a success message
-      if (response.data.success) {
-        message.success('Order placed successfully!');
-
-        const updateContext = {...appContext, cart: null, cartTotal: 0}
-        // make order status to waiting for approval
-        setAppContext(updateContext)
-      } else {
-        message.error('Failed to place the order.');
-      }
-    } catch (error) {
-      console.error('Error placing the order:', error);
-      message.error('An error occurred while placing the order.');
+      fetch('http://127.0.0.1:5000/order', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(order)
+            })
+            .then(res => res.json())
+            .then((data) => {
+            
+                if (data) {
+                    message.success('Order placed successfully!');
+                    
+                    
+                }
+                else{
+                    message.error('Failed to place the order.');
+                }
+               
+            });
+    
     } finally {
       setLoading(false);
     }
@@ -48,6 +62,7 @@ const OrderManagement = () => {
     { title: 'Quantity', dataIndex: 'quantity', key: 'quantity' },
     {title: 'Total', dataIndex: 'total', key: 'total' }
   ];
+
 
   return (
     <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',  width: "100%", height: "88vh", paddingTop: '15em'}}>
@@ -67,11 +82,12 @@ const OrderManagement = () => {
           name="shippingAddress"
           label="Shipping Address"
           rules={[{ required: true, message: 'Please enter the shipping address' }]}
+         
         >
           <Input.TextArea rows={4} />
         </Form.Item>
         <Form.Item>
-          <Button type="primary" htmlType="submit" loading={loading}>
+          <Button type="primary" htmlType="submit" loading={loading} >
             Place Order
           </Button>
         </Form.Item>
