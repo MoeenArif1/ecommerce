@@ -36,12 +36,18 @@ export function Products({headingText}) {
     
     useEffect(()=> {
       setLoading(true)
-      fetch('https://dummyjson.com/products')
+      fetch('http://127.0.0.1:5000/products')
       .then(res => res.json())
       .then((data)=> {
-        setItems(data.products)
-   
+        // setItems(data[0]["products"] )
+        setItems(data)
+        console.log("asdsad")
+        console.log("products", data[0])
+      
+        console.log("data", data)
         
+   
+         
       });
       setLoading(false)
     }, [])
