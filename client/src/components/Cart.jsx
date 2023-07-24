@@ -4,6 +4,7 @@ import { ShoppingCartOutlined } from '@ant-design/icons';
 import '../css/Cart.css'
 import { useLoginContext } from './LoginContext';
 import { useAppContext } from './appContext';
+import { useNavigate } from 'react-router-dom';
 
 function Cart() {
   
@@ -11,11 +12,12 @@ function Cart() {
     const [id, setId] = useState(null)
     const [cartItems, setCartItems] = useState([]);
     const [visible, setVisible] = useState(false);
-    const [cartCount, setcartCount] = useState(0);
+
     const [total, setTotal] = useState(0);
     
     const {loginContext} = useLoginContext();
     const {appContext, setAppContext} = useAppContext();
+    const navigate = useNavigate()
 
 
     useEffect(()=> {
@@ -23,37 +25,45 @@ function Cart() {
             setId(loginContext.id)
     }, [loginContext]);
 
-    useEffect(()=> {
-        setcartCount(appContext.cartCount)
-    }, [appContext.cartCount])
+  
+   
 
     useEffect(() => {
-        if (id != null ) {
+        if (true) {
             fetch(`https://dummyjson.com/carts/${id}`)
             .then(res => res.json())
             .then((data)=> {
                 console.log(data)
                 setCartItems(data.products)
-                //////////////////////////
-                // remove this if when your own api
-                if (appContext.cartCount == 0)
-                { 
-                    const updatedAppContext = {...appContext, cartCount: data.totalProducts}
+            
+
+                if (data && data.totalProducts){
+                    const updatedAppContext = {...appContext, cartCount: data.totalProducts, cart:cartItems, cartTotal:data.total}
+
                     setAppContext(updatedAppContext)
- 
                 }
+               
+                
                   
             });
 
         }
     
-    }, [visible, id])
+    }, [id])
    
+    useEffect(()=> {
+        const updatedAppContext = {...appContext, cart:cartItems}
+
+        setAppContext(updatedAppContext)
+
+    }, [cartItems])
 
     const handleClick = () => {
         if (id){
+            updateCart()
             setVisible(true); 
             updateTotal()
+
         }
             
         else {
@@ -64,33 +74,70 @@ function Cart() {
 
     const onClose = () => {
         setVisible(false);
+        updateCart()
+        updateTotal()
+
+        /// set update cart call to api
     };
     const updateTotal = () => {
         const updatedTotal = cartItems.reduce((prev, current) => prev + current.total, 0);
         setTotal(updatedTotal);
+       const updateContext = {...appContext, cartTotal: updatedTotal}
+       setAppContext(updateContext)
       };
+
+    const updateCart = () => {
+        const filteredCartItems = cartItems.filter((cartItem) => cartItem.quantity > 0);
+        setCartItems(filteredCartItems)
+        const updateContext = {...appContext, cart:filteredCartItems}
+        setAppContext(updateContext)
+        // update cart on api
+
+    }
     const orderProcess = () => {
-       console.log(cartItems)
-       const filteredCartItems = cartItems.filter((cartItem) => cartItem.quantity > 0);
-       console.log(filteredCartItems)
+        onClose()
+       
+        navigate("/Order")
+        
+      
+    
+     
+       
 
 
     }
+    const [isWideScreen, setIsWideScreen] = useState(window.innerWidth >= 1000);
+    const drawerWidth = window.width ? 600 : '100vw';
+    useEffect(() => {
+        const handleWindowSizeChange = () => {
+          setIsWideScreen(window.innerWidth >= 1000);
+        };
     
+        // Add an event listener to track window resize
+        window.addEventListener('resize', handleWindowSizeChange);
+    
+        // Clean up the event listener when the component unmounts
+        return () => {
+          window.removeEventListener('resize', handleWindowSizeChange);
+        };
+      }, []);
 
   return (
     <>  
-        <Badge count={cartCount} size='small' showZero={true} offset={[0, 10]}> 
+        <Badge count={appContext.cartCount} size='small' showZero={true} offset={[0, 10]}> 
             <Button  type="default" ghost style={{border: 'none'}} size='large' icon={<ShoppingCartOutlined />} onClick={handleClick}></Button>
         </Badge>
                   
-        <Drawer 
+        <Drawer     
         placement="right"
         closable={true}
         onClose={onClose}
         open = {visible}
         title="Your Cart"
-        contentWrapperStyle={{ width: 600 }}
+        contentWrapperStyle={{
+            width: '100vw',
+            maxWidth: 600, // Optional: Limit the maximum width to 600px for larger screens
+          }}
         className='cart-drawer'
         
 
@@ -124,33 +171,26 @@ function Cart() {
                             defaultValue={value}
                             onChange={(newValue) => {
                                 setCartItems((prevCartItems) =>
-                                prevCartItems.map((cartItem) => {
-                                    if (record.id === cartItem.id) {
-                                        //return { ...cartItem, quantity: newValue, total: cartItem.price * newValue };
-                                        cartItem.quantity = newValue;
-                                        cartItem.total = cartItem.price * newValue
+                                    prevCartItems.map((cartItem) => {
+                                        if (record.id === cartItem.id) {
+                                            //return { ...cartItem, quantity: newValue, total: cartItem.price * newValue };
+                                            cartItem.quantity = newValue;
+                                            cartItem.total = cartItem.price * newValue
+                                            if (newValue  <= 0 ){
+                                                appContext.cartCount -= 1
+                                            }
+
                                     
-                                    }
-                                    return cartItem;
-                                })
+                                        }
+                                        return cartItem;
+                                    })
+                                    
                                 );
+                                updateTotal()
                             }}
                         />
 
-                    // <InputNumber
-                    //     min={0}
-                    //     defaultValue={value}
-                    //     onChange={(value) => {
-                    //     setCartItems((pre) =>
-                    //         pre.map((cart) => {
-                    //         if (record.id === cart.id) {
-                    //             cart.total = cart.price * value;
-                    //         }
-                    //         return cart;
-                    //         })
-                    //     );
-                    //     }}
-                    // ></InputNumber>
+                  
                     );
                 },
                 },
@@ -164,11 +204,7 @@ function Cart() {
                 
             ]}
             dataSource={cartItems}
-            // summary={(data) => {
-            //     const total = data.reduce((pre, current) => {
-            //     return pre + current.total;
-            //     }, 0);
-            //     return   <p className="cart-big-font">Total: &nbsp; &nbsp;Rs {total}</p>;
+         
             summary={() => (
                 <p className="cart-big-font">Total: &nbsp; &nbsp;Rs {total}</p>
               )}

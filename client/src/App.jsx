@@ -10,6 +10,8 @@ import Signup from "./components/Signup";
 import { LoginContextProvider } from "./components/LoginContext";
 import { AppContextProvider } from "./components/appContext";
 import AccountInfo from "./components/AccountInfo";
+import OrderManagement from "./components/OrderManagement";
+
 
 function App() {
 
@@ -39,6 +41,7 @@ function App() {
         <Route path="/About" element = {<About/>}/>
         <Route path="/Signup" element = {<Signup/>}/>
         <Route path="/AccountInfo" element = {<AccountInfo/>}/>
+        <Route path="/Order" element= {<OrderManagement/>}/>
         <Route path = "/*" element = {<NotFound/>}/>
 
 

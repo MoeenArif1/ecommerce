@@ -141,32 +141,72 @@ export function Products({headingText}) {
         setLoading(true)
 
 
-        if (id) {
-          fetch(`https://dummyjson.com/carts/${id}`, {
-          method: 'PUT', /* or PATCH */
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            merge: true, // this will include existing products in the cart
-            products: [
-              item,
-            ],
+        if (id ) {
+          console.log("item ", item)
+    
+          const index = appContext.cart.findIndex(obj => obj.id === item.id);
+          if (index !== -1) {
+            appContext.cart[index] = {...appContext.cart[index], quantity: appContext.cart[index].quantity + 1, total: appContext.cart[index].total +  appContext.cart[index].price}
+            appContext.cartTotal = appContext.cartTotal + item.price
+            console.log("cart", appContext.cart)
+            message.success(`${item.title} has been added to cart!`)
+          
+            
+          } else {
+            const discount_price = parseInt(item.discountPercentage * item.price /100)
+
+      
+            const new_item = {
+              id: item.id,
+              discountPercentage: item.discountPercentage,
+              discountedPrice: item.price -  discount_price ,
+              price: item.price,
+              quantity: 1,
+              title: item.title,
+              total: item.price
+
+            }
+         
+            appContext.cart.push(new_item)
+            appContext.cartTotal = appContext.cartTotal + new_item.price
+            appContext.cartCount = appContext.cartCount + 1
+            
+            const updateContext = {...appContext}
+            setAppContext(updateContext)
+            message.success(`${new_item.title} has been added to cart!`)
             
             
+          }
+      
+       
+        //    // add item to cart here and update total and cartCount correctly
+        //   fetch(`https://dummyjson.com/carts/${id}`, {
+        //   method: 'PUT', /* or PATCH */
+        //   headers: { 'Content-Type': 'application/json' },
+        //   body: JSON.stringify({
+        //     merge: true, // this will include existing products in the cart
+        //     products: [
+        //       item,
+        //     ]
 
-          })
-        })
-        .then(res => res.json())
-        .then( (data) => {
-          message.success(`${item.title} has been added to cart!`);
-
-          const updatedAppContext = {...appContext, cartCount: appContext.cartCount + 1}
-          setAppContext(updatedAppContext)
+        //   })
+        // })
+        // .then(res => res.json())
+        // .then( (data) => {
+        //   message.success(`${item.title} has been added to cart!`);
+        //   let updatedAppContext = null
+          
+        //   if (appContext.cartCount == 0) {
+        //     updatedAppContext = {...appContext, cartCount: 1}
+        //   } else {
+        //     updatedAppContext = {...appContext, cartCount: appContext.cartCount + 1}
+        //   }
+        //   // updatedAppContext = {...updatedAppContext, cartTotal: appContext.cartTotal + item.price}
+        //   setAppContext(updatedAppContext)
       
    
     
           setLoading(false)
-
-        })
 
         } else {
           message.error("LOGIN FIRST")
