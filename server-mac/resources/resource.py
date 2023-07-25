@@ -28,7 +28,7 @@ class ProductApi(Resource):
             brand = data.get('brand')
             category = data.get('category')
             thumbnail = data.get('thumbnail')
-            _id = data.get('_id')
+            p_id = data.get('p_id')
 
             new_product = products(
 
@@ -40,7 +40,8 @@ class ProductApi(Resource):
                 stock=stock,
                 brand=brand,
                 category=category,
-                thumbnail=thumbnail
+                thumbnail=thumbnail,
+                p_id=p_id
                 # Add more fields as needed
             ).save()
 
@@ -60,9 +61,9 @@ class ProductApi(Resource):
             # Retrieve the product based on the provided product_id
             data = request.get_json()
 
-            id = data.get("id")
+            id = data.get("p_id")
             print("id", id)
-            product = products.objects.get(id=id)
+            product = products.objects.get(p_id=id)
             print(product.title)
 
 
@@ -71,11 +72,11 @@ class ProductApi(Resource):
             if data.get('title'):
                 product.title = data.get('title')
 
-            if data.get("description"):
+            if data.get("description") and data.get("description"!= ''):
                 product.description = data.get('description')
             if data.get("price"):
                 product.price = data.get('price')
-            if data.get("discountPercentage"):
+            if data.get("discountPercentage") and data.get("discountPercentage") != '' :
                 product.discountPercentage = data.get('discountPercentage')
             if data.get("rating"):
                 product.rating = data.get('rating')
@@ -100,8 +101,8 @@ class ProductApi(Resource):
         try:
             # Retrieve the product based on the provided product_id
             data = request.get_json()
-            product_id = data.get('id')
-            product = products.objects.get(id=product_id)
+            product_id = data.get('p_id')
+            product = products.objects.get(p_id=product_id)
             print(product.title)
 
             # # Delete the product from the database
@@ -292,24 +293,15 @@ class OrderApi(Resource):
         try:
             data = request.get_json()
 
-
-
-
             userId = data.get("userId")
             username = data.get("username")
-            phone  = data.get("phone")
+            phone = data.get("phone")
             email = data.get("email")
             shippingAddress = data.get("shippingAddress")
             cart = data.get("cart")
             total = data.get("total")
             totalProducts = data.get("totalProducts")
-            print("data", jsonify(userId))
-            print("data", jsonify(username))
-            print("data", jsonify(phone))
-            print("data", jsonify(shippingAddress))
-            print("data", jsonify(cart))
-            print("data", jsonify(total))
-            print("data", jsonify(totalProducts))
+
 
 
             order = orders(

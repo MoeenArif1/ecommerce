@@ -11,7 +11,14 @@ import { LoginContextProvider } from "./components/LoginContext";
 import { AppContextProvider } from "./components/appContext";
 import AccountInfo from "./components/AccountInfo";
 import OrderManagement from "./components/OrderManagement";
-
+import Admin from '../../Admin/Admin';
+import Dashboard from "../../Admin/Pages/Dashbaord";
+import Inventory from "../../Admin/Pages/Inventory";
+import Orders from "../../Admin/Pages/Orders";
+import Customers from "../../Admin/Pages/Customers";
+import DeleteProduct from "../../Admin/Components/DeleteProduct";
+import AddProduct from "../../Admin/Components/AddProduct";
+import UpdateProduct from "../../Admin/Components/UpdateProduct";
 
 function App() {
 
@@ -43,7 +50,13 @@ function App() {
         <Route path="/AccountInfo" element = {<AccountInfo/>}/>
         <Route path="/Order" element= {<OrderManagement/>}/>
         <Route path = "/*" element = {<NotFound/>}/>
-
+        <Route path = '/Admin' element={<Admin/>} />
+        <Route path= "/inventory" element= {<Inventory/>}/>
+        <Route path="/orders" element= {<Orders/>} />
+        <Route path="/customers" element= {<Customers/>} />
+        <Route path="/deleteProduct" element= {<DeleteProduct/>} />
+        <Route path="/addProduct" element= {<AddProduct/>}/>
+        <Route path="/updateProduct" element = {<UpdateProduct/>}/>
 
       </Routes>
     </AppContextProvider>

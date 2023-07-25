@@ -80,13 +80,13 @@ function AccountInfo() {
 
             </Row>
 
-            <Divider style={styles.divider}>Address Info</Divider>
+            {/* <Divider style={styles.divider}>Address Info</Divider>
             <Row style={styles.row}>
                 <Col span={24} md={12}>
                     <p style={styles.text}>Adress: {loginContext.address}</p>
                 </Col>
       
-            </Row>
+                    </Row>*/}
             <Divider style={styles.divider}>Log Out</Divider>
             <Row style={styles.row}>
                 <Col span={24} md={12}>

@@ -42,6 +42,7 @@ const OrderManagement = () => {
             
                 if (data) {
                     message.success('Order placed successfully!');
+                    setAppContext({cartCount:0})
                     
                     
                 }

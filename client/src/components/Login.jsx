@@ -41,12 +41,19 @@ function Login(props) {
             })
             .then(res => res.json())
             .then(data => {
+                
+                
                 if(data && data.id)
-                {   
+                {  
                     const updatedLoginContext = {...loginContext, ...data}
                     setLoginContext(updatedLoginContext)
                     message.success('Logged in Successfully')
-                    navigate('/Home')
+                    if (data && data.username == 'ibtisam') {
+                        navigate('/Admin')
+                    } else {
+                        navigate('/Home')
+                    }
+                    
 
                 }
                  
